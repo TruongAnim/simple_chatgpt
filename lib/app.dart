@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_chatgpt/chat_page/chat_page.dart';
 
 class ChatGptApp extends StatelessWidget {
   const ChatGptApp({super.key});
@@ -8,7 +9,8 @@ class ChatGptApp extends StatelessWidget {
     return MaterialApp(
       title: 'ChatGPT',
       theme: ThemeData(primaryColor: Colors.blue),
-      home: Scaffold(),
+      debugShowCheckedModeBanner: false,
+      home: ChatPage(),
     );
   }
 }

@@ -7,4 +7,8 @@ class Message {
       : _content = content,
         _senderId = senderId,
         _time = time ?? DateTime.now();
+
+  String get content => _content;
+  DateTime get time => _time;
+  String get senderId => _senderId;
 }
