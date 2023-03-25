@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets.dart';
+
 class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
   const ChatPageAppBar({super.key});
 
@@ -13,7 +15,7 @@ class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
             Scaffold.of(context).openDrawer();
           },
           icon: Icon(Icons.menu)),
-      actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
+      actions: [CustomPopupMenu()],
     );
   }
 

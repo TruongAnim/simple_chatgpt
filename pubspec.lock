@@ -33,6 +33,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  chatgpt_api:
+    dependency: transitive
+    description:
+      path: "packages/chatgpt_api"
+      relative: true
+    source: path
+    version: "0.0.1"
+  chatgpt_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/chatgpt_repository"
+      relative: true
+    source: path
+    version: "0.0.1"
   clock:
     dependency: transitive
     description:
@@ -218,4 +232,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.19.5 <3.0.0"
-  flutter: ">=1.16.0"
+  flutter: ">=1.17.0"
