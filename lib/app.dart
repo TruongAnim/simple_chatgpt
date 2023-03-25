@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ChatGptApp extends MaterialApp {
-  const ChatGptApp({super.key})
-      : super(
-            home: const Scaffold(
-          body: Text('hello'),
-        ));
+class ChatGptApp extends StatelessWidget {
+  const ChatGptApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'ChatGPT',
+      theme: ThemeData(primaryColor: Colors.blue),
+      home: Scaffold(),
+    );
+  }
 }
