@@ -26,3 +26,8 @@ class AddQuestion extends ChatPageEvent {
   AddQuestion({required this.question});
   final String question;
 }
+
+class ChangeName extends ChatPageEvent {
+  ChangeName({required this.newName});
+  final String newName;
+}

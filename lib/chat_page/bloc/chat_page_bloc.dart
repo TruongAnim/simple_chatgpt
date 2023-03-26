@@ -14,6 +14,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     on<AddNewConversation>(_addNewConversation);
     on<AddQuestion>(_addQuestion);
     on<ChangeCurrentConversation>(_changeCurrentConversation);
+    on<ChangeName>(_changeName);
   }
 
   final ChatGptRepository _repository;
@@ -65,5 +66,12 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   void _changeCurrentConversation(
       ChangeCurrentConversation event, Emitter<ConversationState> emit) {
     emit(state.copyWith(currentConversation: event.newCurrent));
+  }
+
+  void _changeName(ChangeName event, Emitter<ConversationState> emit) {
+    state.conversations[state.currentConversation].title = event.newName;
+    emit(state.copyWith(
+      data: DateTime.now().toString(),
+    ));
   }
 }

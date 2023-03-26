@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 
 class CustomPopupMenu extends StatelessWidget {
   const CustomPopupMenu({super.key});
@@ -41,17 +43,21 @@ class CustomPopupMenu extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              String newName = '';
+              TextEditingController controller = TextEditingController();
+              ChatPageBloc bloc = context.read<ChatPageBloc>();
+
+              controller.text = bloc
+                  .state.conversations[bloc.state.currentConversation].title;
+              print('${controller.text}');
               return AlertDialog(
                 title: const Text('Rename Conversation'),
                 content: TextField(
                   // display the current name of the conversation
+                  controller: controller,
                   decoration: InputDecoration(
-                    hintText: 'hello',
+                    hintText: 'Conversation name',
                   ),
-                  onChanged: (value) {
-                    newName = value;
-                  },
+                  onChanged: (value) {},
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -69,7 +75,7 @@ class CustomPopupMenu extends StatelessWidget {
                     ),
                     onPressed: () {
                       // Call renameConversation method here with the new name
-
+                      bloc.add(ChangeName(newName: controller.text));
                       Navigator.pop(context);
                     },
                   ),
