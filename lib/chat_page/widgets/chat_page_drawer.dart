@@ -1,8 +1,10 @@
+import 'package:chatgpt_repository/chatgpt_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 
 class ChatPageDrawer extends StatelessWidget {
   ChatPageDrawer({super.key});
-  List<String> conversations = List.empty();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,6 +15,9 @@ class ChatPageDrawer extends StatelessWidget {
               margin: const EdgeInsets.all(16.0),
               child: GestureDetector(
                 onTap: () {
+                  context
+                      .read<ChatPageBloc>()
+                      .add(AddNewConversation(name: 'New Conversation'));
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -41,67 +46,61 @@ class ChatPageDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-                child: Container(
-              child: ListView.builder(
-                itemCount: conversations.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Text('hello');
-                  // Conversation conversation =
-                  //     conversationProvider.conversations[index];
-                  // return Dismissible(
-                  //   key: UniqueKey(),
-                  //   child: GestureDetector(
-                  //     onTap: () {
-                  //       conversationProvider.currentConversationIndex = index;
-                  //       Navigator.pop(context);
-                  //     },
-                  //     child: Container(
-                  //       padding: const EdgeInsets.all(10.0),
-                  //       margin: const EdgeInsets.symmetric(
-                  //           horizontal: 20.0, vertical: 4.0),
-                  //       decoration: BoxDecoration(
-                  //         color:
-                  //             conversationProvider.currentConversationIndex ==
-                  //                     index
-                  //                 ? const Color(0xff55bb8e)
-                  //                 : Colors.white,
-                  //         // border: Border.all(color: Color(Colors.grey[200]?.value ?? 0)),
-                  //         borderRadius: BorderRadius.circular(8.0),
-                  //       ),
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.start,
-                  //         children: [
-                  //           // coversation icon
-                  //           Icon(
-                  //             Icons.person,
-                  //             color: conversationProvider
-                  //                         .currentConversationIndex ==
-                  //                     index
-                  //                 ? Colors.white
-                  //                 : Colors.grey[700],
-                  //             size: 20.0,
-                  //           ),
-                  //           const SizedBox(width: 15.0),
-                  //           Text(
-                  //             conversation.title,
-                  //             style: TextStyle(
-                  //               // fontWeight: FontWeight.bold,
-                  //               color: conversationProvider
-                  //                           .currentConversationIndex ==
-                  //                       index
-                  //                   ? Colors.white
-                  //                   : Colors.grey[700],
-                  //               fontFamily: 'din-regular',
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // );
-                },
-              ),
+            Expanded(child: BlocBuilder<ChatPageBloc, ConversationState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: state.conversations.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Conversation conversation = state.conversations[index];
+                    return Dismissible(
+                      key: UniqueKey(),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<ChatPageBloc>().add(
+                              ChangeCurrentConversation(newCurrent: index));
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 4.0),
+                          decoration: BoxDecoration(
+                            color: state.currentConversation == index
+                                ? const Color(0xff55bb8e)
+                                : Colors.white,
+                            // border: Border.all(color: Color(Colors.grey[200]?.value ?? 0)),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              // coversation icon
+                              Icon(
+                                Icons.person,
+                                color: state.currentConversation == index
+                                    ? Colors.white
+                                    : Colors.grey[700],
+                                size: 20.0,
+                              ),
+                              const SizedBox(width: 15.0),
+                              Text(
+                                conversation.title,
+                                style: TextStyle(
+                                  // fontWeight: FontWeight.bold,
+                                  color: state.currentConversation == index
+                                      ? Colors.white
+                                      : Colors.grey[700],
+                                  fontFamily: 'din-regular',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             )),
             // add a setting button at the end of the drawer
             Container(

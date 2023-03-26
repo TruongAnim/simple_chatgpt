@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   chatgpt_api:
     path: ../chatgpt_api
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

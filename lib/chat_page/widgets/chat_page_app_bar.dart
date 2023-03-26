@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 
 import 'widgets.dart';
 
@@ -7,15 +9,19 @@ class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Text('hello'),
-      centerTitle: true,
-      leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: Icon(Icons.menu)),
-      actions: [CustomPopupMenu()],
+    return BlocBuilder<ChatPageBloc, ConversationState>(
+      builder: (context, state) {
+        return AppBar(
+          title: Text(state.conversations[state.currentConversation].title),
+          centerTitle: true,
+          leading: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(Icons.menu)),
+          actions: [CustomPopupMenu()],
+        );
+      },
     );
   }
 

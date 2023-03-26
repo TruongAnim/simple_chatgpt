@@ -18,10 +18,10 @@ class ChatGptRepository {
   List<Conversation> get conversations => _conversations;
 
   List<Conversation> _loadConversation() {
-    return List.empty();
+    return [];
   }
 
-  void getAnswer(Conversation conversation) {
+  Future<String?> getAnswer(Conversation conversation) async {
     List<Map<String, String>> messages = [
       {
         'role': "system",
@@ -34,9 +34,6 @@ class ChatGptRepository {
         'content': message.content
       });
     }
-    _chatClient.sendMessage(messages).then((result) {
-      conversation.messages
-          .add(Message(content: result ?? 'Error', senderId: 'system'));
-    });
+    return _chatClient.sendMessage(messages);
   }
 }

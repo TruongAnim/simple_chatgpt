@@ -21,3 +21,8 @@ class AddNewConversation extends ChatPageEvent {
 class InitConversations extends ChatPageEvent {
   InitConversations();
 }
+
+class AddQuestion extends ChatPageEvent {
+  AddQuestion({required this.question});
+  final String question;
+}
