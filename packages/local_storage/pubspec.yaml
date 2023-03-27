@@ -1,4 +1,4 @@
-name: chatgpt_repository
+name: local_storage
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
@@ -10,11 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  chatgpt_api:
-    path: ../chatgpt_api
-  local_storage:
-    path: ../local_storage
-  equatable: ^2.0.5
+  shared_preferences: ^2.0.20
 
 dev_dependencies:
   flutter_test:

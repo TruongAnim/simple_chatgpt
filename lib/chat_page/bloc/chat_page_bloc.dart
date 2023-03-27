@@ -17,17 +17,25 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     on<ChangeName>(_changeName);
     on<DeleteConversation>(_deleteConversation);
     on<ClearChat>(_clearChat);
+    on<UpdateApiSetting>(_updateApiSetting);
   }
 
   final ChatGptRepository _repository;
 
   void _initConversation(
-      InitConversations event, Emitter<ConversationState> emit) {
+      InitConversations event, Emitter<ConversationState> emit) async {
+    await _repository.loadData();
     List<Conversation> conversations = _repository.conversations;
     if (conversations.isEmpty) {
       conversations.add(Conversation(title: 'New conversation'));
     }
-    emit(state.copyWith(convsersations: conversations, currentConversation: 0));
+    print('_initConversation ${_repository.usingDefaultKey}');
+    emit(state.copyWith(
+        convsersations: conversations,
+        currentConversation: 0,
+        usingDefaultKey: _repository.usingDefaultKey,
+        userKey: _repository.userApiKey));
+    print('_initConversation done');
   }
 
   void _addNewConversation(
@@ -44,9 +52,6 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     conversations[state.currentConversation]
         .messages
         .add(Message(content: event.question, senderId: 'user'));
-    // List<Conversation> newList = List.of(conversations);
-    // newList[0].title = 'new titlte';
-    // emit(state.copyWith(convsersations: newList));
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: state.currentConversation,
@@ -89,5 +94,13 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   void _clearChat(ClearChat event, Emitter<ConversationState> emit) {
     state.conversations[state.currentConversation].messages.clear();
     emit(state.copyWith(data: DateTime.now().toString()));
+  }
+
+  void _updateApiSetting(
+      UpdateApiSetting event, Emitter<ConversationState> emit) {
+    _repository.usingDefaultKey = event.usingDefault;
+    _repository.userApiKey = event.userKey;
+    emit(state.copyWith(
+        usingDefaultKey: event.usingDefault, userKey: event.userKey));
   }
 }

@@ -39,3 +39,9 @@ class DeleteConversation extends ChatPageEvent {
 class ClearChat extends ChatPageEvent {
   ClearChat();
 }
+
+class UpdateApiSetting extends ChatPageEvent {
+  UpdateApiSetting({required this.usingDefault, required this.userKey});
+  final bool usingDefault;
+  final String userKey;
+}

@@ -137,43 +137,95 @@ void showApiSettingDialog(BuildContext context) async {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      String newName = 'YOUR_API_KEY';
-      return AlertDialog(
-        title: const Text('API Setting'),
-        content: TextField(
-          // display the current name of the conversation
-          decoration: InputDecoration(
-            hintText: 'Enter API Key',
-          ),
-          onChanged: (value) {
-            newName = value;
-          },
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          TextButton(
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: Color(0xff55bb8e),
-              ),
-            ),
-            onPressed: () {
-              if (newName == '') {
-                Navigator.pop(context);
-                return;
-              }
-              // set api
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
+      return const ApiDialog();
     },
   );
+}
+
+class ApiDialog extends StatelessWidget {
+  const ApiDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ChatPageBloc, ConversationState>(
+      builder: (context, state) {
+        print('${state.usingDefaultKey}');
+
+        return ApiDialogView(
+          checkedValue: state.usingDefaultKey,
+          userKey: state.userKey,
+        );
+      },
+    );
+  }
+}
+
+class ApiDialogView extends StatefulWidget {
+  ApiDialogView({super.key, required this.checkedValue, required this.userKey});
+  late String userKey;
+  late bool checkedValue;
+  @override
+  State<ApiDialogView> createState() => _ApiDialogViewState();
+}
+
+class _ApiDialogViewState extends State<ApiDialogView> {
+  TextEditingController controller = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    controller.text = widget.userKey;
+    return AlertDialog(
+      title: const Text('API Setting'),
+      content: SizedBox(
+        height: 80,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: Checkbox(
+                value: widget.checkedValue,
+                onChanged: (newValue) {
+                  setState(() {
+                    widget.checkedValue = !widget.checkedValue;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            const Text('Use free default key')
+          ]),
+          TextField(
+            enabled: !widget.checkedValue,
+            controller: controller,
+            decoration: const InputDecoration(
+              hintText: 'Enter your API Key',
+            ),
+          ),
+        ]),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: const Text(
+            'Save',
+            style: TextStyle(
+              color: Color(0xff55bb8e),
+            ),
+          ),
+          onPressed: () {
+            context.read<ChatPageBloc>().add(UpdateApiSetting(
+                usingDefault: widget.checkedValue, userKey: controller.text));
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+  }
 }
