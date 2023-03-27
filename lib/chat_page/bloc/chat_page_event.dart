@@ -31,3 +31,11 @@ class ChangeName extends ChatPageEvent {
   ChangeName({required this.newName});
   final String newName;
 }
+
+class DeleteConversation extends ChatPageEvent {
+  DeleteConversation();
+}
+
+class ClearChat extends ChatPageEvent {
+  ClearChat();
+}

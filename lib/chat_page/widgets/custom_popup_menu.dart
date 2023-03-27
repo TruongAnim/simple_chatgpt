@@ -21,7 +21,7 @@ class CustomPopupMenu extends StatelessWidget {
           value: "refresh",
           child: ListTile(
             leading: Icon(Icons.refresh),
-            title: Text('Refresh'),
+            title: Text('Clear chat'),
           ),
         ),
         const PopupMenuItem(
@@ -83,13 +83,12 @@ class CustomPopupMenu extends StatelessWidget {
               );
             },
           );
-
-          // Provider.of<ConversationProvider>(context, listen: false)
-          //     .renameCurrentConversation();
         } else if (value == "delete") {
           // delete
+          context.read<ChatPageBloc>().add(DeleteConversation());
         } else if (value == "refresh") {
           // refresh
+          context.read<ChatPageBloc>().add(ClearChat());
         }
       },
     );
