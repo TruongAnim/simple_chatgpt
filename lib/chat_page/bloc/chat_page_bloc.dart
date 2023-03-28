@@ -29,13 +29,11 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     if (conversations.isEmpty) {
       conversations.add(Conversation(title: 'New conversation'));
     }
-    print('_initConversation ${_repository.usingDefaultKey}');
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: 0,
         usingDefaultKey: _repository.usingDefaultKey,
         userKey: _repository.userApiKey));
-    print('_initConversation done');
   }
 
   void _addNewConversation(

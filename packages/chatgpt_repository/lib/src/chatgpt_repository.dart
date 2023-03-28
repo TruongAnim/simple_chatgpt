@@ -9,7 +9,7 @@ class ChatGptRepository {
   late List<Conversation> _conversations;
   late bool _usingDefaultKey;
   ChatGptRepository() {
-    _apiKey = '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';
+    _apiKey = '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';
     _chatClient = ChatGptClient(apiKey: _apiKey);
 
     _conversations = _loadConversation();
@@ -36,6 +36,11 @@ class ChatGptRepository {
   bool get usingDefaultKey => _usingDefaultKey;
   set usingDefaultKey(bool usingDefault) {
     _usingDefaultKey = usingDefault;
+    if (usingDefaultKey) {
+      _chatClient.apiKey = _apiKey;
+    } else {
+      _chatClient.apiKey = _userApiKey;
+    }
     SharePreferenceUtil.setKeyBool('usingDefault', usingDefault);
   }
 
