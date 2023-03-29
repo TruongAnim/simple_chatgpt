@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chatgpt_repository/chatgpt_repository.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 
@@ -9,7 +10,7 @@ const userAvt = 'assets/avatars/person.png';
 const systemAvt = 'assets/avatars/ChatGPT_logo.png';
 
 class ConversationListView extends StatelessWidget {
-  const ConversationListView({super.key});
+  ConversationListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +20,20 @@ class ConversationListView extends StatelessWidget {
         return true;
       },
       builder: (context, state) {
-        if (state.conversations.isEmpty) {
-          print('Conversation is empty!');
-          return Center(
+        Conversation conversation =
+            state.conversations[state.currentConversation];
+        if (conversation.message.isEmpty) {
+          return const Center(
             child: Text('Conversation is empty!'),
           );
         }
-        print('rebuild');
-        Conversation conversation =
-            state.conversations[state.currentConversation];
+        final ScrollController _controller = ScrollController();
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _controller.jumpTo(_controller.position.maxScrollExtent);
+        });
+
         return ListView.builder(
+          controller: _controller,
           itemCount: conversation.message.length,
           itemBuilder: (BuildContext context, int index) {
             Message message = conversation.message[index];

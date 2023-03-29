@@ -10,15 +10,17 @@ class ChatGptRepository {
   late List<Conversation> _conversations;
   late bool _usingDefaultKey;
   ChatGptRepository() {
-    _apiKey = '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';
-    _chatClient = ChatGptClient(apiKey: _apiKey);
+    _chatClient = ChatGptClient();
     _hiveStorage = HiveStorage();
   }
 
   Future<void> loadData() async {
     await _hiveStorage.initHive();
+    _apiKey = await FireStoreUtil.getConfig() ?? '';
+    print('api key: $_apiKey');
+    _chatClient.apiKey = _apiKey;
     _userApiKey = await SharePreferenceUtil.getKeyString('userKey') ?? '';
-    _usingDefaultKey =
+    usingDefaultKey =
         await SharePreferenceUtil.getKeyBool('usingDefault') ?? true;
     _conversations = _loadConversation();
   }

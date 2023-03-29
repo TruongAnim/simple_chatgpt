@@ -15,11 +15,21 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ChatPageAppBar(),
-      drawer: ChatPageDrawer(),
-      body: Column(
-          children: [Expanded(child: ConversationListView()), MessageEditor()]),
+    return GestureDetector(
+      onTap: () {
+        final FocusScopeNode currentScope = FocusScope.of(context);
+        if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: ChatPageAppBar(),
+        drawer: ChatPageDrawer(),
+        body: Column(children: [
+          Expanded(child: ConversationListView()),
+          MessageEditor()
+        ]),
+      ),
     );
   }
 }

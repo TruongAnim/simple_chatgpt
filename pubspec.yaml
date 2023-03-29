@@ -38,6 +38,8 @@ dependencies:
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
   equatable: ^2.0.3
+  cloud_firestore: ^4.4.5
+  firebase_core: ^2.8.0
   chatgpt_repository:
     path: packages/chatgpt_repository
 

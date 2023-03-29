@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "767037836011",
+    "project_id": "chatgpt-apps-5c5a0",
+    "storage_bucket": "chatgpt-apps-5c5a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767037836011:android:42371174981f89d9314cae",
+        "android_client_info": {
+          "package_name": "com.truonganim.simple_chatgpt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767037836011-a3doop3g3ujbibd80hg76utr5jf00fbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFGCU1z95OhsluFvAnuPgCK4A37XnRruA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767037836011-a3doop3g3ujbibd80hg76utr5jf00fbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

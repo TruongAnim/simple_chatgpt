@@ -36,6 +36,7 @@ class MessageEditorView extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: _textController,
+              autofocus: false,
               decoration:
                   const InputDecoration.collapsed(hintText: 'Ask anything...'),
             ),
@@ -51,6 +52,12 @@ class MessageEditorView extends StatelessWidget {
                             .read<ChatPageBloc>()
                             .add(AddQuestion(question: question));
                         _textController.clear();
+                        final FocusScopeNode currentScope =
+                            FocusScope.of(context);
+                        if (!currentScope.hasPrimaryFocus &&
+                            currentScope.hasFocus) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        }
                       }
                     : null,
               );
