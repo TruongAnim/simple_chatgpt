@@ -20,7 +20,7 @@ class ChatGptRepository {
     _userApiKey = await SharePreferenceUtil.getKeyString('userKey') ?? '';
     _usingDefaultKey =
         await SharePreferenceUtil.getKeyBool('usingDefault') ?? true;
-    _conversations = _hiveStorage.loadListConversation();
+    _conversations = _loadConversation();
   }
 
   String get userApiKey => _userApiKey;
@@ -50,6 +50,11 @@ class ChatGptRepository {
   void addConversation(Conversation conversation) {
     _conversations.add(conversation);
     _hiveStorage.addConversation(conversation);
+  }
+
+  void removeConversation(int index) {
+    _conversations.removeAt(index);
+    _hiveStorage.removeConversation(index);
   }
 
   List<Conversation> _loadConversation() {

@@ -21,4 +21,9 @@ class HiveStorage {
     var box = Hive.box<Conversation>('conversations');
     box.add(conversation);
   }
+
+  void removeConversation(int index) {
+    var box = Hive.box<Conversation>('conversations');
+    box.deleteAt(index);
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chatgpt_repository/chatgpt_repository.dart';
@@ -50,6 +48,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     conversations[state.currentConversation]
         .message
         .add(Message(content: event.question, sender: 'user'));
+    conversations[state.currentConversation].save();
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: state.currentConversation,
@@ -59,6 +58,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     conversations[state.currentConversation]
         .message
         .add(Message(content: answer ?? 'Error!!!', sender: 'system'));
+    conversations[state.currentConversation].save();
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: state.currentConversation,
@@ -72,6 +72,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
 
   void _changeName(ChangeName event, Emitter<ConversationState> emit) {
     state.conversations[state.currentConversation].title = event.newName;
+    state.conversations[state.currentConversation].save();
     emit(state.copyWith(
       data: DateTime.now().toString(),
     ));
@@ -82,8 +83,9 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     if (state.conversations.length == 1) {
       state.conversations[0].message.clear();
       state.conversations[0].title = 'New conversation';
+      state.conversations[0].save();
     } else {
-      state.conversations.removeAt(state.currentConversation);
+      _repository.removeConversation(state.currentConversation);
     }
     emit(state.copyWith(
         currentConversation: 0, data: DateTime.now().toString()));
@@ -91,6 +93,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
 
   void _clearChat(ClearChat event, Emitter<ConversationState> emit) {
     state.conversations[state.currentConversation].message.clear();
+    state.conversations[state.currentConversation].save();
     emit(state.copyWith(data: DateTime.now().toString()));
   }
 

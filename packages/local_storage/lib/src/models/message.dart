@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'message.g.dart';
 
 @HiveType(typeId: 0)
-class Message {
+class Message extends HiveObject {
   @HiveField(0)
   String content;
   @HiveField(1)
