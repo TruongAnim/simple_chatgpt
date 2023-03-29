@@ -1,8 +1,6 @@
-import 'package:equatable/equatable.dart';
-
 import 'models.dart';
 
-class Conversation extends Equatable {
+class Conversation {
   List<Message> _messages;
   String _title;
 
@@ -19,7 +17,4 @@ class Conversation extends Equatable {
   set messages(List<Message> newMessages) {
     _messages = newMessages;
   }
-
-  @override
-  List<Object> get props => [messages, title];
 }

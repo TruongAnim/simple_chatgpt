@@ -1,0 +1,16 @@
+Cách tạo model hive.
+B0: Thêm hive_generator: và build_runner: vào DEV_dependencies
+B1: Tạo models
+B2: Thêm part 'abc.g.dart'
+B3: Thêm annotaion vào tên class (@HiveType) và vào các field (@HiveField)
+B4: chạy đoạn lệnh: flutter packages pub run build_runner build
+
+Các file ...g.dart sẽ được tạo.
+Để lưu trữ model xuống hive ta cần các bước:
+B0: ở main, khai báo:   
+    WidgetsFlutterBinding.ensureInitialized();
+    await Hive.initFlutter();
+B1: Đăng kí các adapter trong ...g.dart
+    Hive.registerAdapter(SubjectAdapter());
+B2: Open box với tên nào đó.
+    await Hive.openBox<Person>('person_box');

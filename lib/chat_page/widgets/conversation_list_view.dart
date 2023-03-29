@@ -29,16 +29,16 @@ class ConversationListView extends StatelessWidget {
         Conversation conversation =
             state.conversations[state.currentConversation];
         return ListView.builder(
-          itemCount: conversation.messages.length,
+          itemCount: conversation.message.length,
           itemBuilder: (BuildContext context, int index) {
-            Message message = conversation.messages[index];
+            Message message = conversation.message[index];
             return Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (message.senderId != userId)
+                  if (message.sender != userId)
                     CircleAvatar(
                       backgroundImage: AssetImage(systemAvt),
                       radius: 16.0,
@@ -48,14 +48,14 @@ class ConversationListView extends StatelessWidget {
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Align(
-                      alignment: message.senderId == userId
+                      alignment: message.sender == userId
                           ? Alignment.centerRight
                           : Alignment.centerLeft,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
                         decoration: BoxDecoration(
-                          color: message.senderId == userId
+                          color: message.sender == userId
                               ? Color(0xff55bb8e)
                               : Colors.grey[200],
                           borderRadius: BorderRadius.circular(16.0),
@@ -70,7 +70,7 @@ class ConversationListView extends StatelessWidget {
                         child: Text(
                           message.content,
                           style: TextStyle(
-                            color: message.senderId == userAvt
+                            color: message.sender == userAvt
                                 ? Colors.white
                                 : Colors.black,
                           ),
@@ -79,7 +79,7 @@ class ConversationListView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  if (message.senderId == userId)
+                  if (message.sender == userId)
                     CircleAvatar(
                       backgroundImage: AssetImage(userAvt),
                       radius: 16.0,

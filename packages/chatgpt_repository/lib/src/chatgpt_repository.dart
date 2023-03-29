@@ -6,20 +6,21 @@ class ChatGptRepository {
   late String _apiKey;
   late String _userApiKey;
   late ChatGptClient _chatClient;
+  late HiveStorage _hiveStorage;
   late List<Conversation> _conversations;
   late bool _usingDefaultKey;
   ChatGptRepository() {
     _apiKey = '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';
     _chatClient = ChatGptClient(apiKey: _apiKey);
-
-    _conversations = _loadConversation();
+    _hiveStorage = HiveStorage();
   }
 
   Future<void> loadData() async {
+    await _hiveStorage.initHive();
     _userApiKey = await SharePreferenceUtil.getKeyString('userKey') ?? '';
     _usingDefaultKey =
         await SharePreferenceUtil.getKeyBool('usingDefault') ?? true;
-    print('load data done $_usingDefaultKey');
+    _conversations = _hiveStorage.loadListConversation();
   }
 
   String get userApiKey => _userApiKey;
@@ -45,8 +46,14 @@ class ChatGptRepository {
   }
 
   List<Conversation> get conversations => _conversations;
+
+  void addConversation(Conversation conversation) {
+    _conversations.add(conversation);
+    _hiveStorage.addConversation(conversation);
+  }
+
   List<Conversation> _loadConversation() {
-    return [];
+    return _hiveStorage.loadListConversation();
   }
 
   Future<String?> getAnswer(Conversation conversation) async {
@@ -56,9 +63,9 @@ class ChatGptRepository {
         'content': "",
       }
     ];
-    for (Message message in conversation.messages) {
+    for (Message message in conversation.message) {
       messages.add({
-        'role': message.senderId == 'user' ? 'user' : 'system',
+        'role': message.sender == 'user' ? 'user' : 'system',
         'content': message.content
       });
     }

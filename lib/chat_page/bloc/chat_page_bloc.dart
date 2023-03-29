@@ -27,7 +27,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     await _repository.loadData();
     List<Conversation> conversations = _repository.conversations;
     if (conversations.isEmpty) {
-      conversations.add(Conversation(title: 'New conversation'));
+      conversations.add(Conversation(title: 'New conversation', message: []));
     }
     emit(state.copyWith(
         convsersations: conversations,
@@ -38,8 +38,8 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
 
   void _addNewConversation(
       AddNewConversation event, Emitter<ConversationState> emit) {
+    _repository.addConversation(Conversation(title: event.name, message: []));
     List<Conversation> conversations = _repository.conversations;
-    conversations.add(Conversation(title: event.name));
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: conversations.length - 1));
@@ -48,8 +48,8 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   void _addQuestion(AddQuestion event, Emitter<ConversationState> emit) async {
     List<Conversation> conversations = _repository.conversations;
     conversations[state.currentConversation]
-        .messages
-        .add(Message(content: event.question, senderId: 'user'));
+        .message
+        .add(Message(content: event.question, sender: 'user'));
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: state.currentConversation,
@@ -57,8 +57,8 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     String? answer =
         await _repository.getAnswer(conversations[state.currentConversation]);
     conversations[state.currentConversation]
-        .messages
-        .add(Message(content: answer ?? 'Error!!!', senderId: 'system'));
+        .message
+        .add(Message(content: answer ?? 'Error!!!', sender: 'system'));
     emit(state.copyWith(
         convsersations: conversations,
         currentConversation: state.currentConversation,
@@ -80,7 +80,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   void _deleteConversation(
       DeleteConversation event, Emitter<ConversationState> emit) {
     if (state.conversations.length == 1) {
-      state.conversations[0].messages.clear();
+      state.conversations[0].message.clear();
       state.conversations[0].title = 'New conversation';
     } else {
       state.conversations.removeAt(state.currentConversation);
@@ -90,7 +90,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   }
 
   void _clearChat(ClearChat event, Emitter<ConversationState> emit) {
-    state.conversations[state.currentConversation].messages.clear();
+    state.conversations[state.currentConversation].message.clear();
     emit(state.copyWith(data: DateTime.now().toString()));
   }
 
