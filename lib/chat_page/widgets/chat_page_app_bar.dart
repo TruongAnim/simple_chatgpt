@@ -13,6 +13,15 @@ class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
       builder: (context, state) {
         return AppBar(
           title: Text(state.conversations[state.currentConversation].title),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue, Colors.purple],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
           centerTitle: true,
           leading: IconButton(
               onPressed: () {

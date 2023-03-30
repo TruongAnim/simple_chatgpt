@@ -3,11 +3,12 @@ import 'package:chatgpt_repository/chatgpt_repository.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const userId = 'user';
 const senderId = 'system';
-const userAvt = 'assets/avatars/person.png';
-const systemAvt = 'assets/avatars/ChatGPT_logo.png';
+const userAvt = 'assets/avatars/user1.png';
+const systemAvt = 'assets/avatars/chatbot.png';
 
 class ConversationListView extends StatelessWidget {
   ConversationListView({super.key});
@@ -44,7 +45,7 @@ class ConversationListView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (message.sender != userId)
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: AssetImage(systemAvt),
                       radius: 16.0,
                     )
@@ -61,7 +62,7 @@ class ConversationListView extends StatelessWidget {
                             vertical: 8.0, horizontal: 16.0),
                         decoration: BoxDecoration(
                           color: message.sender == userId
-                              ? Color(0xff55bb8e)
+                              ? Colors.blue
                               : Colors.grey[200],
                           borderRadius: BorderRadius.circular(16.0),
                           boxShadow: [
@@ -72,22 +73,27 @@ class ConversationListView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: Text(
-                          message.content,
-                          style: TextStyle(
-                            color: message.sender == userAvt
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
+                        child: message.content != 'typing'
+                            ? Text(
+                                message.content,
+                                style: TextStyle(
+                                  color: message.sender == userId
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              )
+                            : const SpinKitThreeBounce(
+                                color: Color.fromARGB(255, 107, 221, 172),
+                                size: 30.0,
+                              ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   if (message.sender == userId)
-                    CircleAvatar(
-                      backgroundImage: AssetImage(userAvt),
-                      radius: 16.0,
+                    Image.asset(
+                      userAvt,
+                      height: 32,
                     )
                   else
                     const SizedBox(width: 24.0),

@@ -33,7 +33,6 @@ class ConversationState extends Equatable {
       String? data,
       bool? usingDefaultKey,
       String? userKey}) {
-    print('copyWith: $usingDefaultKey');
     return ConversationState(
         conversations: convsersations ?? _conversations,
         currentConversation: currentConversation ?? _currentConversation,

@@ -40,6 +40,7 @@ dependencies:
   equatable: ^2.0.3
   cloud_firestore: ^4.4.5
   firebase_core: ^2.8.0
+  flutter_spinkit: ^5.1.0
   chatgpt_repository:
     path: packages/chatgpt_repository
 

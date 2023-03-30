@@ -53,11 +53,16 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
         convsersations: conversations,
         currentConversation: state.currentConversation,
         data: DateTime.now().toString()));
+    await Future.delayed(Duration(seconds: 1));
+    Message message = Message(content: 'typing', sender: 'system');
+    conversations[state.currentConversation].message.add(message);
+    emit(state.copyWith(
+        convsersations: conversations,
+        currentConversation: state.currentConversation,
+        data: DateTime.now().toString()));
     String? answer =
         await _repository.getAnswer(conversations[state.currentConversation]);
-    conversations[state.currentConversation]
-        .message
-        .add(Message(content: answer ?? 'Error!!!', sender: 'system'));
+    message.content = answer ?? 'Error!!!';
     conversations[state.currentConversation].save();
     emit(state.copyWith(
         convsersations: conversations,

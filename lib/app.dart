@@ -37,7 +37,7 @@ class AppView extends StatelessWidget {
       },
       child: MaterialApp(
         title: 'ChatGPT',
-        theme: ThemeData(primaryColor: Colors.blue),
+        theme: ThemeData(primaryColor: Colors.green),
         debugShowCheckedModeBanner: false,
         home: ChatPage(),
       ),
