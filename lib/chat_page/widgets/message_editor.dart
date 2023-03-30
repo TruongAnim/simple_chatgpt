@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/chat_page.dart';
+import 'package:simple_chatgpt/constants.dart';
 
 class MessageEditor extends StatelessWidget {
   const MessageEditor({super.key});
@@ -44,7 +45,11 @@ class MessageEditorView extends StatelessWidget {
           BlocBuilder<SendButtonCubit, bool>(
             builder: (context, state) {
               return IconButton(
-                icon: const Icon(Icons.send),
+                disabledColor: kPrimaryColor.withOpacity(0.2),
+                color: kPrimaryColor,
+                icon: const Icon(
+                  Icons.send,
+                ),
                 onPressed: state
                     ? () {
                         String question = _textController.text;

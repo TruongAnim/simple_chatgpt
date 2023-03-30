@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
+import 'package:simple_chatgpt/constants.dart';
 
 import 'widgets.dart';
 
@@ -14,13 +15,7 @@ class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
         return AppBar(
           title: Text(state.conversations[state.currentConversation].title),
           flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blue, Colors.purple],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+            decoration: BoxDecoration(color: kPrimaryColor),
           ),
           centerTitle: true,
           leading: IconButton(

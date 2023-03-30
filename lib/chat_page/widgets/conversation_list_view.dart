@@ -4,11 +4,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:simple_chatgpt/constants.dart';
 
 const userId = 'user';
 const senderId = 'system';
 const userAvt = 'assets/avatars/user1.png';
-const systemAvt = 'assets/avatars/chatbot.png';
+const systemAvt = 'assets/avatars/chatgpt.png';
 
 class ConversationListView extends StatelessWidget {
   ConversationListView({super.key});
@@ -42,15 +43,17 @@ class ConversationListView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: message.sender != userId
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
                 children: [
                   if (message.sender != userId)
                     const CircleAvatar(
                       backgroundImage: AssetImage(systemAvt),
-                      radius: 16.0,
+                      radius: 14.0,
                     )
                   else
-                    const SizedBox(width: 24.0),
+                    const SizedBox(width: 30.0),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Align(
@@ -59,28 +62,25 @@ class ConversationListView extends StatelessWidget {
                           : Alignment.centerLeft,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
+                            horizontal: kDefaultPadding * 0.75,
+                            vertical: kDefaultPadding / 2),
                         decoration: BoxDecoration(
                           color: message.sender == userId
-                              ? Colors.blue
-                              : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(16.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 5,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+                              ? kPrimaryColor
+                              : kPrimaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                         child: message.content != 'typing'
                             ? Text(
                                 message.content,
                                 style: TextStyle(
-                                  color: message.sender == userId
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                                    fontSize: 16,
+                                    color: message.sender == userId
+                                        ? Colors.white
+                                        : Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.color),
                               )
                             : const SpinKitThreeBounce(
                                 color: Color.fromARGB(255, 107, 221, 172),
@@ -91,12 +91,20 @@ class ConversationListView extends StatelessWidget {
                   ),
                   const SizedBox(width: 8.0),
                   if (message.sender == userId)
-                    Image.asset(
-                      userAvt,
-                      height: 32,
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: kPrimaryColor),
+                      child: Icon(
+                        Icons.done,
+                        size: 8,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
                     )
                   else
-                    const SizedBox(width: 24.0),
+                    const SizedBox(width: 30.0),
                 ],
               ),
             );

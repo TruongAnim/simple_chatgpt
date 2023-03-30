@@ -24,7 +24,8 @@ class ChatPageDrawer extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    // border: Border.all(color: Color(Colors.grey[300]?.value ?? 0)),
+                    border:
+                        Border.all(color: Color(Colors.grey[300]?.value ?? 0)),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Row(
@@ -63,12 +64,18 @@ class ChatPageDrawer extends StatelessWidget {
                         child: Container(
                           padding: const EdgeInsets.all(10.0),
                           margin: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 4.0),
+                              horizontal: 20.0, vertical: 8.0),
                           decoration: BoxDecoration(
                             color: state.currentConversation == index
                                 ? const Color(0xff55bb8e)
                                 : Colors.white,
                             // border: Border.all(color: Color(Colors.grey[200]?.value ?? 0)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(2, 4),
+                                  blurRadius: 4)
+                            ],
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Row(
