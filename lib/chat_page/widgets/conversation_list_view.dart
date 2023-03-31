@@ -8,17 +8,16 @@ import 'package:simple_chatgpt/constants.dart';
 
 const userId = 'user';
 const senderId = 'system';
-const userAvt = 'assets/avatars/user1.png';
+const userAvt = 'assets/avatars/user.png';
 const systemAvt = 'assets/avatars/chatgpt.png';
 
 class ConversationListView extends StatelessWidget {
-  ConversationListView({super.key});
+  const ConversationListView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChatPageBloc, ConversationState>(
       buildWhen: (previous, current) {
-        print('build when');
         return true;
       },
       builder: (context, state) {
@@ -95,7 +94,7 @@ class ConversationListView extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 5),
                       width: 12,
                       height: 12,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: kPrimaryColor),
                       child: Icon(
                         Icons.done,

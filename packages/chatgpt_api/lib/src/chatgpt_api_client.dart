@@ -15,7 +15,6 @@ class ChatGptClient {
   }
 
   Future<String?> sendMessage(List<Map<String, String>> messages) async {
-    print('api key $_apiKey');
     final url = Uri.parse('https://api.openai.com/v1/chat/completions');
     final converter = JsonUtf8Encoder();
 

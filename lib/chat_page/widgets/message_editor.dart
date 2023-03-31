@@ -21,7 +21,6 @@ class MessageEditorView extends StatelessWidget {
     TextEditingController _textController = TextEditingController();
     _textController.addListener(
       () {
-        print('hello');
         context.read<SendButtonCubit>().textChange(_textController.text);
       },
     );

@@ -48,13 +48,12 @@ class CustomPopupMenu extends StatelessWidget {
 
               controller.text = bloc
                   .state.conversations[bloc.state.currentConversation].title;
-              print('${controller.text}');
               return AlertDialog(
                 title: const Text('Rename Conversation'),
                 content: TextField(
                   // display the current name of the conversation
                   controller: controller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Conversation name',
                   ),
                   onChanged: (value) {},

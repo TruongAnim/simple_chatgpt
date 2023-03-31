@@ -15,14 +15,22 @@ class ChatGptRepository {
   }
 
   Future<void> loadData() async {
+    print('start load data');
     await _hiveStorage.initHive();
+    print('init hive done');
+
     _apiKey = await FireStoreUtil.getConfig() ?? '';
-    print('api key: $_apiKey');
+    print('get apikey done');
+
     _chatClient.apiKey = _apiKey;
     _userApiKey = await SharePreferenceUtil.getKeyString('userKey') ?? '';
+
     usingDefaultKey =
         await SharePreferenceUtil.getKeyBool('usingDefault') ?? true;
+    print('get reference done');
+
     _conversations = _loadConversation();
+    print('load data done');
   }
 
   String get userApiKey => _userApiKey;

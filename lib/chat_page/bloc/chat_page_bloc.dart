@@ -8,6 +8,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   ChatPageBloc({required ChatGptRepository repository})
       : _repository = repository,
         super(ConversationState()) {
+    print('start build bloc');
     on<InitConversations>(_initConversation);
     on<AddNewConversation>(_addNewConversation);
     on<AddQuestion>(_addQuestion);
@@ -25,7 +26,8 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     await _repository.loadData();
     List<Conversation> conversations = _repository.conversations;
     if (conversations.isEmpty) {
-      conversations.add(Conversation(title: 'New conversation', message: []));
+      _repository.addConversation(
+          Conversation(title: 'New conversation', message: []));
     }
     emit(state.copyWith(
         convsersations: conversations,

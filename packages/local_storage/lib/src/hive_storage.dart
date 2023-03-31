@@ -8,7 +8,6 @@ class HiveStorage {
     Hive.registerAdapter(MessageAdapter());
     Hive.registerAdapter(ConversationAdapter());
     await Hive.openBox<Conversation>('conversations');
-    print('init hive done');
   }
 
   List<Conversation> loadListConversation() {

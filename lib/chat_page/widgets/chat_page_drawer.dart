@@ -156,8 +156,6 @@ class ApiDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatPageBloc, ConversationState>(
       builder: (context, state) {
-        print('${state.usingDefaultKey}');
-
         return ApiDialogView(
           checkedValue: state.usingDefaultKey,
           userKey: state.userKey,

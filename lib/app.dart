@@ -29,6 +29,7 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('start building');
     return BlocProvider<ChatPageBloc>(
       create: (context) {
         return ChatPageBloc(
