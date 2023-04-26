@@ -10,8 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  chat_gpt_sdk: ^2.1.1
   cloud_firestore: ^4.4.5
   firebase_core: ^2.8.0
+  
 
 dev_dependencies:
   flutter_test:
