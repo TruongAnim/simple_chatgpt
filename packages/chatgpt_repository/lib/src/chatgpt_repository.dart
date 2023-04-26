@@ -86,4 +86,20 @@ class ChatGptRepository {
     }
     return _chatClient.sendMessage(messages);
   }
+
+  Stream<String> getStreamAnswer(Conversation conversation) {
+    List<Map<String, String>> messages = [
+      {
+        'role': "system",
+        'content': "",
+      }
+    ];
+    for (Message message in conversation.message) {
+      messages.add({
+        'role': message.sender == 'user' ? 'user' : 'system',
+        'content': message.content
+      });
+    }
+    return _chatClient.getAnswer(messages);
+  }
 }

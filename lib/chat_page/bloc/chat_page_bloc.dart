@@ -62,14 +62,50 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
         convsersations: conversations,
         currentConversation: state.currentConversation,
         data: DateTime.now().toString()));
-    String? answer =
-        await _repository.getAnswer(conversations[state.currentConversation]);
-    message.content = answer ?? 'Error!!!';
-    conversations[state.currentConversation].save();
-    emit(state.copyWith(
-        convsersations: conversations,
-        currentConversation: state.currentConversation,
-        data: DateTime.now().toString()));
+    // Future.delayed(Duration(seconds: 15)).then((value) {
+    //   if (message.content == 'typing') {
+    //     message.content = 'Time out!';
+    //   }
+    // });
+    // String? answer =
+    //     await _repository.getAnswer(conversations[state.currentConversation]);
+
+    // message.content = answer ?? 'Error!!!';
+    // conversations[state.currentConversation].save();
+    // emit(state.copyWith(
+    //     convsersations: conversations,
+    //     currentConversation: state.currentConversation,
+    //     data: DateTime.now().toString()));
+    Stream<String> answer =
+        _repository.getStreamAnswer(conversations[state.currentConversation]);
+    // answer.listen((String event) {
+    //   message.content = event;
+    //   print(event);
+    //   emit();
+    // });
+    print('start');
+    await emit.forEach(
+      answer,
+      onData: (String data) {
+        message.content = data;
+        print(data);
+        return state.copyWith(
+            convsersations: conversations,
+            currentConversation: state.currentConversation,
+            data: DateTime.now().toString());
+      },
+      onError: (error, stackTrace) {
+        message.content = error.toString();
+        return state.copyWith(
+            convsersations: conversations,
+            currentConversation: state.currentConversation,
+            data: DateTime.now().toString());
+      },
+    );
+    print('done');
+    if (message.content != 'typing') {
+      conversations[state.currentConversation].save();
+    }
   }
 
   void _changeCurrentConversation(
