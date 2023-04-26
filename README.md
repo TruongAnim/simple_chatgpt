@@ -1,16 +1,24 @@
-# simple_chatgpt
+# ChatGPT (GPT chatbot free)
 
-A new Flutter project.
+Android app that using flutter and OpenAI API
 
-## Getting Started
+## Main feature
 
-This project is a starting point for a Flutter application.
+- Using GPT chat bot without sign-in, sign-up.
+- 100% free. fast and simple.
+- Using OpenAI API.
+- Store conversation to local for re-use.
 
-A few resources to get you started if this is your first Flutter project:
+### State management: [Bloc](https://bloclibrary.dev/#/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Local Database: [Hive](https://pub.dev/packages/hive)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Screenshot
+<p align="center">
+    <img src="https://github.com/TruongAnim/simple_chatgpt/blob/main/test/1.png" alt="drawing"   width="350"/>
+    <img src="https://github.com/TruongAnim/simple_chatgpt/blob/main/test/2.png" alt="drawing"   width="350"/>
+<p align="center">
+    <img src="https://github.com/TruongAnim/simple_chatgpt/blob/main/test/3.png" alt="drawing"   width="350"/>
+    <img src="https://github.com/TruongAnim/simple_chatgpt/blob/main/test/4.png" alt="drawing"   width="350"/>
+
+### Link Download: [Google Play](https://play.google.com/store/apps/details?id=com.truonganim.simple_chatgpt&hl=en)
