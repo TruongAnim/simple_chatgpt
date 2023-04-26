@@ -69,14 +69,11 @@ class ChatGptClient {
         messages: messages, maxToken: 200, model: ChatModel.chatGptTurboModel);
     final AnswerStream _answerStream = AnswerStream();
     _openAI.onChatCompletionSSE(request: request).listen((it) {
-      // debugPrint(it.choices.last.message?.content);
       _answerStream.addWord(it.choices.last.message?.content ?? 'Error!');
     }, onDone: () {
-      print('request done');
       _answerStream.closeStream();
       _answerStream.dispose();
     }, onError: (error) {
-      print('request error ${error.toString()}');
       _answerStream.addError('$error\nPlease check API key.');
       _answerStream.closeStream();
       _answerStream.dispose();
