@@ -45,3 +45,8 @@ class UpdateApiSetting extends ChatPageEvent {
   final bool usingDefault;
   final String userKey;
 }
+
+class MessageClicked extends ChatPageEvent {
+  MessageClicked({required this.message});
+  final String message;
+}

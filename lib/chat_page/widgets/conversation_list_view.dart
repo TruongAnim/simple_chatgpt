@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chatgpt_repository/chatgpt_repository.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -70,16 +71,29 @@ class ConversationListView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: message.content != 'typing'
-                            ? Text(
-                                message.content,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: message.sender == userId
-                                        ? Colors.white
-                                        : Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.color),
+                            ? InkWell(
+                                onTap: () {
+                                  // Clipboard.setData(
+                                  //     ClipboardData(text: message.content));
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showSnackBar(const SnackBar(
+                                  //   content: Text('Copied to clipboard'),
+                                  //   duration: Duration(seconds: 1),
+                                  // ));
+                                  context.read<ChatPageBloc>().add(
+                                      MessageClicked(message: message.content));
+                                },
+                                child: Text(
+                                  message.content,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: message.sender == userId
+                                          ? Colors.white
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.color),
+                                ),
                               )
                             : const SpinKitThreeBounce(
                                 color: Color.fromARGB(255, 107, 221, 172),

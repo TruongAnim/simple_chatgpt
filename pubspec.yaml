@@ -43,6 +43,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   chatgpt_repository:
     path: packages/chatgpt_repository
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

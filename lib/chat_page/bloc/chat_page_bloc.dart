@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chatgpt_repository/chatgpt_repository.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 part 'chat_page_event.dart';
 part 'chat_page_state.dart';
 
@@ -17,6 +22,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     on<DeleteConversation>(_deleteConversation);
     on<ClearChat>(_clearChat);
     on<UpdateApiSetting>(_updateApiSetting);
+    on<MessageClicked>(_messageClicked);
   }
 
   final ChatGptRepository _repository;
@@ -136,5 +142,18 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     _repository.userApiKey = event.userKey;
     emit(state.copyWith(
         usingDefaultKey: event.usingDefault, userKey: event.userKey));
+  }
+
+  void _messageClicked(
+      MessageClicked event, Emitter<ConversationState> emit) async {
+    Clipboard.setData(ClipboardData(text: event.message));
+    Fluttertoast.showToast(
+        msg: 'Copied to clipboard',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey.shade600,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }
