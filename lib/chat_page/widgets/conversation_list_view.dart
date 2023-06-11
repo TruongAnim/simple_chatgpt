@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/bloc/chat_page_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:simple_chatgpt/chat_page/view/message_box.dart';
 import 'package:simple_chatgpt/constants.dart';
 
 const userId = 'user';
@@ -73,27 +74,10 @@ class ConversationListView extends StatelessWidget {
                         child: message.content != 'typing'
                             ? InkWell(
                                 onTap: () {
-                                  // Clipboard.setData(
-                                  //     ClipboardData(text: message.content));
-                                  // ScaffoldMessenger.of(context)
-                                  //     .showSnackBar(const SnackBar(
-                                  //   content: Text('Copied to clipboard'),
-                                  //   duration: Duration(seconds: 1),
-                                  // ));
                                   context.read<ChatPageBloc>().add(
                                       MessageClicked(message: message.content));
                                 },
-                                child: Text(
-                                  message.content,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: message.sender == userId
-                                          ? Colors.white
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.color),
-                                ),
+                                child: MessageBox(message: message),
                               )
                             : const SpinKitThreeBounce(
                                 color: Color.fromARGB(255, 107, 221, 172),

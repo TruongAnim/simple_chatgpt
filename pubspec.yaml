@@ -44,6 +44,7 @@ dependencies:
   chatgpt_repository:
     path: packages/chatgpt_repository
   fluttertoast: ^8.2.1
+  flutter_highlight: ^0.7.0
 
 dev_dependencies:
   flutter_test:
