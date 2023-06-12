@@ -15,7 +15,6 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('start build scafod');
     return GestureDetector(
       onTap: () {
         final FocusScopeNode currentScope = FocusScope.of(context);

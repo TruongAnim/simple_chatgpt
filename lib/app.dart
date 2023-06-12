@@ -2,6 +2,7 @@ import 'package:chatgpt_repository/chatgpt_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_chatgpt/chat_page/chat_page.dart';
+import 'package:simple_chatgpt/chat_page/view/code_pad_page.dart';
 
 class ChatGptApp extends StatefulWidget {
   const ChatGptApp({super.key});
@@ -29,7 +30,6 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('start building');
     return BlocProvider<ChatPageBloc>(
       create: (context) {
         return ChatPageBloc(
@@ -40,7 +40,11 @@ class AppView extends StatelessWidget {
         title: 'ChatGPT',
         theme: ThemeData(primaryColor: Colors.green),
         debugShowCheckedModeBanner: false,
-        home: ChatPage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => ChatPage(),
+          '/codePad': (context) => CodePadPage(),
+        },
       ),
     );
   }

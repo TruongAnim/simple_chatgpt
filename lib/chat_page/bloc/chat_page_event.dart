@@ -46,7 +46,13 @@ class UpdateApiSetting extends ChatPageEvent {
   final String userKey;
 }
 
-class MessageClicked extends ChatPageEvent {
-  MessageClicked({required this.message});
+class MessageCopied extends ChatPageEvent {
+  MessageCopied({required this.message});
   final String message;
+}
+
+class OpenCodePad extends ChatPageEvent {
+  OpenCodePad({required this.message, required this.context});
+  final String message;
+  final BuildContext context;
 }

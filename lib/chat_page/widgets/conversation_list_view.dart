@@ -42,7 +42,7 @@ class ConversationListView extends StatelessWidget {
             Message message = conversation.message[index];
             return Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
               child: Row(
                 crossAxisAlignment: message.sender != userId
                     ? CrossAxisAlignment.start
@@ -75,7 +75,7 @@ class ConversationListView extends StatelessWidget {
                             ? InkWell(
                                 onTap: () {
                                   context.read<ChatPageBloc>().add(
-                                      MessageClicked(message: message.content));
+                                      MessageCopied(message: message.content));
                                 },
                                 child: MessageBox(message: message),
                               )

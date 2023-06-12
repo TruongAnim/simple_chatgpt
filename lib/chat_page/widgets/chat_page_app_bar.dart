@@ -15,15 +15,15 @@ class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
         return AppBar(
           title: Text(state.conversations[state.currentConversation].title),
           flexibleSpace: Container(
-            decoration: BoxDecoration(color: kPrimaryColor),
+            decoration: const BoxDecoration(color: kPrimaryColor),
           ),
           centerTitle: true,
           leading: IconButton(
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: Icon(Icons.menu)),
-          actions: [CustomPopupMenu()],
+              icon: const Icon(Icons.menu)),
+          actions: const [CustomPopupMenu()],
         );
       },
     );

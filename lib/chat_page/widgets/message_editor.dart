@@ -29,7 +29,7 @@ class MessageEditorView extends StatelessWidget {
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(32.0),
       ),
-      margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
       child: Row(
         children: [

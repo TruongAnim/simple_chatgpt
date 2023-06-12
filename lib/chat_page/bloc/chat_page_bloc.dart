@@ -22,7 +22,8 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
     on<DeleteConversation>(_deleteConversation);
     on<ClearChat>(_clearChat);
     on<UpdateApiSetting>(_updateApiSetting);
-    on<MessageClicked>(_messageClicked);
+    on<MessageCopied>(_messageClicked);
+    on<OpenCodePad>(_openCodePad);
   }
 
   final ChatGptRepository _repository;
@@ -145,7 +146,7 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
   }
 
   void _messageClicked(
-      MessageClicked event, Emitter<ConversationState> emit) async {
+      MessageCopied event, Emitter<ConversationState> emit) async {
     Clipboard.setData(ClipboardData(text: event.message));
     Fluttertoast.showToast(
         msg: 'Copied to clipboard',
@@ -155,5 +156,9 @@ class ChatPageBloc extends Bloc<ChatPageEvent, ConversationState> {
         backgroundColor: Colors.grey.shade600,
         textColor: Colors.white,
         fontSize: 16.0);
+  }
+
+  void _openCodePad(OpenCodePad event, Emitter<ConversationState> emit) async {
+    Navigator.pushNamed(event.context, '/codePad', arguments: event.message);
   }
 }

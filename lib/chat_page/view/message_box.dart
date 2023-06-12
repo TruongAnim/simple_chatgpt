@@ -29,12 +29,16 @@ class MessageBox extends StatelessWidget {
               blocks[index].trim(),
               style: TextStyle(
                   fontSize: 16,
+                  fontFamily: "Roboto",
                   color: message.sender == userId
                       ? Colors.white
                       : Theme.of(context).textTheme.bodySmall?.color),
             );
           } else {
-            return HighlightBox(content: blocks[index]);
+            return HighlightBox(
+              content: blocks[index],
+              isExpand: false,
+            );
           }
         },
       ),
