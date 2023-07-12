@@ -9,7 +9,7 @@ Android app that using flutter and OpenAI API
 - Using OpenAI API.
 - Store conversation to local for re-use.
 
-### State management: [Bloc](https://bloclibrary.dev/#/)
+### State management: [Bloc](https://bloclibrary.dev/)
 
 ### Local Database: [Hive](https://pub.dev/packages/hive)
 
@@ -26,4 +26,5 @@ Android app that using flutter and OpenAI API
     <img src="https://github.com/TruongAnim/simple_chatgpt/blob/main/test/5.png" alt="drawing"   width="30%"/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <img src="https://github.com/TruongAnim/simple_chatgpt/blob/main/test/6.png" alt="drawing"   width="30%"/>
+    
 ### Link Download: [Google Play](https://play.google.com/store/apps/details?id=com.truonganim.simple_chatgpt&hl=en)
