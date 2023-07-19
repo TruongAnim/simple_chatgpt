@@ -5,7 +5,7 @@ import 'package:simple_chatgpt/constants.dart';
 
 import 'widgets.dart';
 
-class ChatPageAppBar extends StatelessWidget with PreferredSizeWidget {
+class ChatPageAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatPageAppBar({super.key});
 
   @override
